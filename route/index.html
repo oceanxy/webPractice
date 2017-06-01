@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<ul>
+    <li><a href="#white">turn white</a></li>
+    <li><a href="#blue">turn blue</a></li>
+    <li><a href="#green">turn green</a></li>
+</ul>
+
+<script src="script.js"></script>
+<script type="text/javascript" language="JavaScript">
+    var content = document.querySelector('body');
+    // change Page anything
+    function changeBgColor(color) {
+        content.style.backgroundColor = color;
+    }
+    var d = document.createElement("div");
+    content.appendChild(d);
+    Router.route('white', function() {
+        changeBgColor('white');
+        d.style.backgroundColor = "#333";
+        d.innerHTML = "123";
+    });
+    Router.route('blue', function() {
+        changeBgColor('blue');
+        d.style.backgroundColor = "#666";
+        d.innerHTML = "456";
+    });
+    Router.route('green', function() {
+        changeBgColor('green');
+        d.style.backgroundColor = "#999";
+        d.innerHTML = "789";
+    });
+</script>
+</body>
+</html>
