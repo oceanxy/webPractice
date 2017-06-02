@@ -1,0 +1,150 @@
+@charset "utf-8";
+
+$num_pct33: 33%;
+$num_pct100: 100%;
+$w_1200: 1200px;
+$title_fs: 24px;
+$c_white: #ffffff;
+$c_blue: #019bff;
+
+@mixin box_model {
+  margin: 0;
+  padding: 0;
+}
+
+@mixin block {
+  display: block;
+  overflow: hidden;
+}
+
+$img_path: "images/";//本地
+//$img_path: "../Cms_Data/Sites/test/Files/images/";//服务器
+@mixin background($url, $repeat:no-repeat, $hPos:center, $vPos:center) {
+  background: url($img_path + $url) $repeat $hPos $vPos;
+}
+
+body, html {
+  width: $num_pct100;
+  @include box_model;
+}
+
+.container {
+  width: $w_1200;
+  margin: 0 auto;
+
+  .body_title {
+    @include box_model;
+    height: 59px;
+    line-height: 59px;
+    width: $num_pct100;
+    font: {
+      size: $title_fs;
+    }
+  }
+
+  .pic_show {
+    @include block;
+    width: $num_pct100;
+    padding: 0;
+    margin-top: -86px;
+    display: block;
+    li {
+      position: relative;
+      text-align: center;
+      width: $num_pct33;
+      list-style: none;
+      float: left;
+      z-index: 1;
+    }
+  }
+
+  .body_cont {
+    @include block;
+    width: $num_pct100;
+  }
+
+  .body_cont_list {
+    @include block;
+    width: $num_pct100;
+    padding: 0 0 30px 0;
+    display: block;
+
+    li {
+      text-align: center;
+      width: $num_pct33;
+      list-style: none;
+      float: left;
+      padding-top: 70px;
+
+      .icon {
+        font: {
+          size: 38px;
+          family: "Microsoft YaHei";
+
+        }
+        display: inline-block;
+        margin: 0 auto;
+        width: 63px;
+        height: 93px;
+        line-height: 64px;
+        color: $c_white;
+        @include background("body_cont_icon.png", no-repeat, center, center);
+      }
+
+      .cont {
+        @include block;
+        color: #000;
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+.cont_title {
+  font: {
+    size: 36px;
+    weight: bold;
+  }
+  line-height: 60px;
+  margin: {
+    top: 90px;
+    bottom: 0;
+  }
+  display: inline-block;
+  color: $c_blue;
+  border: {
+    bottom: 3px solid $c_blue;
+  }
+}
+
+.banner {
+  width: $num_pct100;
+  height: 445px;
+  background: #019bff;
+
+  .container {
+    height: 100%;
+    @include background("banner-img.png", no-repeat, right, 30%);
+  }
+
+  .cont_title {
+    color: $c_white;
+    border: {
+      bottom: 3px solid $c_white;
+    }
+  }
+
+  .banner_cont {
+    @include block;
+    width: 534px;
+    padding: 20px 15px 0 30px;
+    background: url($img_path + "yh-l.png") no-repeat left top, url($img_path + "yh-r.png") no-repeat right bottom;
+    color: $c_white;
+    text-indent: 0.5em;
+    line-height: 31px;
+    text-align: center;
+    font: {
+      size: $title_fs;
+    }
+  }
+}
