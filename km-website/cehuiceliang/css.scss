@@ -6,6 +6,8 @@ $w_1200: 1200px;
 $title_fs: 24px;
 $c_white: #ffffff;
 $c_blue: #019bff;
+$img_path: "images/";//本地图片地址
+//$img_path: "../Cms_Data/Sites/test/Files/images/";//服务器图片地址
 
 @mixin box_model {
   margin: 0;
@@ -17,10 +19,8 @@ $c_blue: #019bff;
   overflow: hidden;
 }
 
-$img_path: "images/";//本地
-//$img_path: "../Cms_Data/Sites/test/Files/images/";//服务器
-@mixin background($url, $repeat:no-repeat, $hPos:center, $vPos:center) {
-  background: url($img_path + $url) $repeat $hPos $vPos;
+@mixin background($bgd...) {
+  background: $bgd;
 }
 
 body, html {
@@ -88,7 +88,7 @@ body, html {
         height: 93px;
         line-height: 64px;
         color: $c_white;
-        @include background("body_cont_icon.png", no-repeat, center, center);
+        @include background(url($img_path + "body_cont_icon.png") no-repeat center center);
       }
 
       .cont {
@@ -124,7 +124,7 @@ body, html {
 
   .container {
     height: 100%;
-    @include background("banner-img.png", no-repeat, right, 30%);
+    @include background(url($img_path + "banner-img.png") no-repeat right 30%);
   }
 
   .cont_title {
@@ -138,7 +138,7 @@ body, html {
     @include block;
     width: 534px;
     padding: 20px 15px 0 30px;
-    background: url($img_path + "yh-l.png") no-repeat left top, url($img_path + "yh-r.png") no-repeat right bottom;
+    @include background(url($img_path + "yh-l.png") no-repeat left top, url($img_path + "yh-r.png") no-repeat right bottom);
     color: $c_white;
     text-indent: 0.5em;
     line-height: 31px;
