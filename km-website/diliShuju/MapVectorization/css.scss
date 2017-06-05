@@ -1,0 +1,126 @@
+@charset "utf-8";
+
+$num_pct33: 33%;
+$num_pct100: 100%;
+$w_1200: 1200px;
+$title_fs: 24px;
+$fs_26: 26px;
+$fs_30: 30px;
+$c_white: #ffffff;
+$c_blue: #019bff;
+
+@mixin box_model {
+  margin: 0;
+  padding: 0;
+}
+
+@mixin block {
+  display: block;
+  overflow: hidden;
+}
+
+//$img_path: "images/";//本地
+$img_path: "../../Cms_Data/Sites/test/Files/images/";//服务器
+@mixin background($url, $repeat:no-repeat, $hPos:center, $vPos:center) {
+  background: url($img_path + $url) $repeat $hPos $vPos;
+}
+
+.tac{
+  text-align: center;
+}
+
+.pd{
+  padding: 30px 0;
+}
+
+body, html {
+  width: $num_pct100;
+  @include box_model;
+}
+
+.container {
+  width: $w_1200;
+  margin: 0 auto;
+
+  .body_title {
+    @include box_model;
+    height: 59px;
+    line-height: 59px;
+    width: $num_pct100;
+    font: {
+      size: $title_fs;
+    }
+  }
+}
+
+.cont_title {
+  font: {
+    size: 36px;
+  }
+  line-height: 60px;
+  margin: 30px 0;
+  color: $c_blue;
+  text-align: center;
+}
+
+.cont_font{
+  font-size: $title_fs;
+  line-height: 40px;
+}
+
+.banner {
+  width: $num_pct100;
+  height: 290px;
+
+  .container {
+    width: 100%;
+    height: 100%;
+    @include background("dili_banner.png");
+    background-size: 100% 100%;
+    display:table;
+    _position:relative;
+    overflow:hidden;
+  }
+
+  .subCon{
+    vertical-align:middle;
+    display:table-cell;
+    _position:absolute;
+    _top:50%;
+  }
+
+  .banner_cont {
+    width: $num_pct100;
+    color: $c_white;
+    text-align: center;
+    _position:relative;
+    margin: 12px 0;
+    _top:-50%;
+    font: {
+      size: $fs_26;
+    }
+  }
+}
+.exp{
+  width: 100%;
+  height: 282px;
+  padding: 20px;
+  @include background("jianbian1.png");
+  background-size: 100% 100%;
+  text-align: center;
+
+  .cont_title{
+    display: inline-block;
+    width: 320px;
+    margin: 20px auto 50px;
+    color: $c_white;
+    background: url($img_path + "yh-l.png") no-repeat left top, url($img_path + "yh-r.png") no-repeat right bottom;
+  }
+
+  .cont_font{
+    color: $c_white;
+    font-size: $fs_30;
+    line-height: 30px;
+    margin: 10px;
+  }
+}
