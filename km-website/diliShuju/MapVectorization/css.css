@@ -1,0 +1,92 @@
+.tac {
+  text-align: center;
+}
+
+.pd {
+  padding: 30px 0;
+}
+
+body, html {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}
+.container .body_title {
+  margin: 0;
+  padding: 0;
+  height: 59px;
+  line-height: 59px;
+  width: 100%;
+  font-size: 24px;
+}
+
+.cont_title {
+  font-size: 36px;
+  line-height: 60px;
+  margin: 30px 0;
+  color: #019bff;
+  text-align: center;
+}
+
+.cont_font {
+  font-size: 24px;
+  line-height: 40px;
+}
+
+.banner {
+  width: 100%;
+  height: 290px;
+}
+.banner .container {
+  width: 100%;
+  height: 100%;
+  background: url("../../Cms_Data/Sites/test/Files/images/dili_banner.png") no-repeat center center;
+  background-size: 100% 100%;
+  display: table;
+  _position: relative;
+  overflow: hidden;
+}
+.banner .subCon {
+  vertical-align: middle;
+  display: table-cell;
+  _position: absolute;
+  _top: 50%;
+}
+.banner .banner_cont {
+  width: 100%;
+  color: #ffffff;
+  text-align: center;
+  _position: relative;
+  margin: 12px 0;
+  _top: -50%;
+  font-size: 26px;
+}
+
+.exp {
+  width: 100%;
+  height: 282px;
+  padding: 20px 0;
+  background: url("../../Cms_Data/Sites/test/Files/images/jianbian1.png") no-repeat center center;
+  background-size: 100% 100%;
+  text-align: center;
+}
+.exp .cont_title {
+  display: inline-block;
+  width: 320px;
+  margin: 20px auto 50px;
+  color: #ffffff;
+  background: url("../../Cms_Data/Sites/test/Files/images/yh-l.png") no-repeat left top, url("../../Cms_Data/Sites/test/Files/images/yh-r.png") no-repeat right bottom;
+}
+.exp .cont_font {
+  color: #ffffff;
+  font-size: 30px;
+  line-height: 30px;
+  margin: 10px;
+}
+
+/*# sourceMappingURL=css.css.map */
