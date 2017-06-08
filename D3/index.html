@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #barChart{
+            background:#f0f0f0;
+            padding:10px;
+            font-family:Verdana;
+        }
+        #barChart .bar{
+            left:0px;
+            height:20px;
+            background:#00ff00;
+            margin:5px;
+        }
+    </style>
+</head>
+<body>
+<div id="barChart"></div>
+</body>
+<script type="text/javascript">
+    var data = [10,15,23,78,57,29,34,71];
+
+    window.onload = function(){
+        //使用d3.js重写柱状图渲染过程
+        d3
+            /**d3的四把斧
+             * 声明DOM对象集*/
+            .select("#barChart")
+            .selectAll(".bar")	//指定要操作的DOM对象
+            /**声明数据对象*/
+            .data(data)	//指定要操作的数据
+            /**获取缺失的DOM对象集*/
+            .enter()	//计算缺失的DOM对象
+            /**追加DOM对象并设置起属性*/
+            .append("div")	//添加缺失的DOM对象
+            .text(function(d){return d;})	//设置新增DOM对象的文本
+            .classed("bar",true)	//设置新增DOM对象的CSS类
+            .style("width",function(d,i){return d + "px";});	//设置新增DOM对象的宽度
+    };
+</script>
+<script src="d3.js"></script>
+</html>
