@@ -100,8 +100,8 @@ html,body{
     width: 500px;
     height: 100%;
     float: left;
+    padding-right: 4px;
     border-right: 2px solid #cacaca;
-    cursor: e-resize;
 }
 .code-font{
     height: 24px;

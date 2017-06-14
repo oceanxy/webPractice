@@ -50,7 +50,7 @@ function initEditor() {
     } else {
         editor.setValue($("#script_once_code").val());
     }
-    $(".CodeMirror").height($(".CodeMirror").height() - 24)
+    $(".CodeMirror").height($(".code-box").height() - 24)
 }
 
 //拖动改变地图容器大小
@@ -62,11 +62,21 @@ function resizeBox() {
         $toggle = $(".right_container .toggle");
 
     $code.on({
+        mouseover: function (e) {
+            e = window.event || e;
+            offsetX = e.clientX;
+            boxWidth = $code.width();
+            if (e.clientX - $code.offset().left >= boxWidth - 6 && e.clientX - $code.offset().left <= boxWidth + 4) {
+                $(".code-box").css("cursor", "e-resize");
+            } else {
+                $(".code-box").css("cursor", "default");
+            }
+        },
         mousedown: function (e) {
             e = window.event || e;
             offsetX = e.clientX;
             boxWidth = $code.width();
-            if (e.clientX - $code.offset().left >= boxWidth - 2) {
+            if (e.clientX - $code.offset().left >= boxWidth - 6 && e.clientX - $code.offset().left <= boxWidth + 4) {
                 $(document).on({
                     mousemove: function (ev) {
                         ev = window.event || ev;
@@ -106,7 +116,7 @@ function resizeBox() {
     $toggle.on("click", function () {
         if (!$(this).data("open")) {
             $code.stop(true).animate({width: 0}, 300);
-            $(this).stop(true).animate({left: 0}, 300);
+            $(this).stop(true).animate({left: 6}, 300);
             $(this).data("open", true).css({backgroundPositionY: -242});
         } else {
             $code.stop(true).animate({width: boxWidth || 500}, 300);
