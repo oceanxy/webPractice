@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        body {
+            background: #000;
+        }
+
+        .wrap {
+            perspective: 5000px;
+            perspective-origin: 0 -1000px;
+            margin-left: 100px;
+            margin-top: 100px;
+        }
+
+        .cube {
+            position: relative;
+            width: 0;
+            height: 0;
+            transform-style: preserve-3d;
+            animation: spin 2s forwards cubic-bezier(0.55, 0.06, 0.49, 0.95);
+        }
+
+        .cube div {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: 100%;
+        }
+
+        .cube img{
+            width: 100%;
+            height: 100%;
+            -webkit-box-reflect: below 3px -webkit-linear-gradient(transparent,transparent 75%,rgba(0,0,0,.3))
+        }
+
+        .cube .cube-box{
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-size: 22px;
+            color: #b1dd03;
+            top: -20px;
+            left: 0;
+            opacity: 0;
+        }
+
+        .cube .cube-box.active{
+            opacity: 1;
+        }
+
+        .cube .cube-box p{
+            position: relative;
+            top: 0;
+        }
+
+        .cube .cube-box p.cube-panel-title{
+            line-height: 30px;
+            text-shadow: 0 0 2px rgba(249, 255, 231, 0.52);
+            margin: 0;
+        }
+
+        .cube .cube-box .cube-panel-title.b{
+            margin-top: 18%;
+        }
+
+        .cube .cube-box .cube-panel-value{
+            line-height: 30px;
+            text-shadow: 0 0 2px rgba(249, 255, 231, 0.52);
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .cube .cube-box.side p{
+            color: transparent;
+            text-shadow: 0 0 6px #b1dd03;
+            transition: text-shadow 2s cubic-bezier(0, 1, 0, 1);
+            -webkit-transition: text-shadow 2s cubic-bezier(0, 1, 0, 1);
+            -moz-transition: text-shadow 2s cubic-bezier(0, 1, 0, 1);
+            -o-transition: text-shadow 2s cubic-bezier(0, 1, 0, 1);
+        }
+
+
+        .cube .back {
+            background: url("images/box-front.png");
+            transform: translateZ(-100px) rotateY(180deg);
+            animation: spinBack 2s cubic-bezier(0.55, 0.06, 0.49, 0.95) forwards;
+        }
+        @keyframes spinBack{
+            from {
+                transform: translateZ(0px) rotateY(0deg);
+            }
+            to {
+                transform: translateZ(-100px) rotateY(180deg);
+            }
+        }
+
+        .cube .right {
+            background: url("images/box-right.png");
+            transform: rotateY(-270deg) translateX(100px);
+            transform-origin: top right;
+            animation: spinRight 2s cubic-bezier(0.55, 0.06, 0.49, 0.95) forwards;
+        }
+        @keyframes spinRight{
+            from {
+                transform: rotateY(0deg) translateX(0px);
+            }
+            to {
+                transform: rotateY(-270deg) translateX(100px);
+            }
+        }
+
+        .cube .left {
+            background: url("images/box-left.png");
+            transform: rotateY(270deg) translateX(-100px);
+            transform-origin: center left;
+            animation: spinLeft 2s cubic-bezier(0.55, 0.06, 0.49, 0.95) forwards;
+        }
+        @keyframes spinLeft{
+            from {
+                transform: rotateY(0deg) translateX(0px);
+            }
+            to {
+                transform: rotateY(270deg) translateX(-100px);
+            }
+        }
+
+        .cube .top {
+            background: url("images/box-top.png");
+            transform: rotateX(-90deg) translateY(-100px);
+            transform-origin: top center;
+            animation: spinTop 2s cubic-bezier(0.55, 0.06, 0.49, 0.95) forwards;
+        }
+        @keyframes spinTop{
+            from {
+                transform: rotateX(0deg) translateY(0px);
+            }
+            to {
+                transform: rotateX(-90deg) translateY(-100px);
+            }
+        }
+
+        .cube .bottom {
+            background: url("images/box-bottom.png");
+            transform: rotateX(90deg) translateY(100px);
+            transform-origin: bottom center;
+            animation: spinBottom 2s cubic-bezier(0.55, 0.06, 0.49, 0.95) forwards;
+        }
+        @keyframes spinBottom {
+            from {
+                transform: rotateX(0deg) translateY(0px);
+            }
+            to {
+                transform: rotateX(90deg) translateY(100px);
+            }
+        }
+
+        .cube .front {
+            background: url("images/box-front.png");
+            transform: translateZ(100px);
+            animation: spinFront 2s cubic-bezier(0.55, 0.06, 0.49, 0.95) forwards;
+        }
+        @keyframes spinFront {
+            from {
+                transform: translateZ(0);
+            }
+            to {
+                transform: translateZ(100px);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                width: 0;
+                height: 0;
+                transform: rotateY(0deg) rotateX(360deg) rotateZ(0deg);
+            }
+            to {
+                width: 200px;
+                height: 200px;
+                transform: rotateY(350deg) rotateX(360deg) rotateZ(360deg);
+            }
+        }
+
+        @keyframes r {
+            from {
+                width: 200px;
+                height: 200px;
+                transform: rotateY(-10deg);
+            }
+            to {
+                width: 200px;
+                height: 200px;
+                transform: rotateY(710deg);
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="cube">
+        <div class="front">
+            <img src="images/box-front.png" alt="">
+            <div class="cube-box">
+                <p class="cube-panel-title">题库总量</p>
+                <p class="cube-panel-value">1,463</p>
+
+                <p class="cube-panel-title b">微课数量</p>
+                <p class="cube-panel-value">1,463</p>
+            </div>
+        </div>
+        <div class="back"><img src="images/box-back.png" alt=""></div>
+        <div class="top"></div>
+        <div class="bottom"></div>
+        <div class="left"><img src="images/box-left.png" alt=""></div>
+        <div class="right">
+            <img src="images/box-right.png" alt="">
+            <div class="cube-box side">
+                <p class="cube-panel-title">题库总量</p>
+                <p class="cube-panel-value">1,463</p>
+
+                <p class="cube-panel-title b">微课数量</p>
+                <p class="cube-panel-value">1,463</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script>
+    setTimeout(function () {
+        $('.cube-box').stop(true).animate({
+            'opacity': 1,
+            'top': '20px'
+        }, 1000)
+    }, 2000)
+    setTimeout(function () {
+
+        $('.cube').css('animation', 'r 2s infinite cubic-bezier(0.23, 0.18, 0, 0.85)')
+    }, 4000)
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>正方体</title>
+
+    <style>
+        *{padding: 0;margin: 0;}
+        .wrap{
+            width: 200px;
+            height: 200px;
+            margin: 200px auto;
+            position: relative;
+            transition: all 6s;
+            transform-style: preserve-3d;
+        }
+        .wrap div{
+            width: 200px;
+            height: 200px;
+            position: absolute;
+        }
+        .wrap:hover{
+            transform: rotateX(360deg) rotateY(360deg);
+        }
+        .front{
+            background:red;
+            transform: translateZ(100px);
+        }
+        .bottom{
+            background:blue;
+            transform: rotateX(90deg) translateZ(-100px);
+        }
+        .back{
+            background:yellow;
+            transform: translateZ(-100px);
+        }
+        .top{
+            background:gray;
+            transform: rotateX(90deg) translateZ(100px);
+        }
+        .left{
+            background:green;
+            transform: rotateY(-90deg) translateZ(100px);
+        }
+        .right{
+            background:royalblue;
+            transform: rotateY(90deg) translateZ(100px);
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrap">
+    <div class="front"></div>
+    <div class="bottom"></div>
+    <div class="back"></div>
+    <div class="top"></div>
+    <div class="left"></div>
+    <div class="right"></div>
+</div>
+</body>
+
+</html>
