@@ -132,6 +132,7 @@ WebGL学习笔记：
     Tx, Ty, Tz, 1.0
   ])
 
+
   // 创建缩放矩阵
   var Sx = 1.0
   var Sy = 1.5
@@ -144,6 +145,139 @@ WebGL学习笔记：
   ])
 ```
 
+15. 模型变换：一个模型可能经过了多次变换，将这些变换全部复合成一个等效的变换，就得到了模型变换，或称建模变换，相应的，模型变换的矩阵称为模型矩阵。
 
+16. 在 WebGL 中，如果顶点着色器与片元着色器中有类型和命名都相同的 varying 变量，那么顶点着色器赋给该变量的值就会被自动地传入片元着色器。
 
+17. 片元着色器里面必须申明浮点数的精度才能正常编译，否则回报错：
+
+    Failed to compile shader: ERROR: 0:3: 'GL_ES' : unexpected token after conditional expression
+
+    使用 #ifdef GL_ES ... #endif GL_ES 也会导致这个问题。目前未知原因。
+
+    申明浮点数精度的方法：
+
+    ```
+    precision mediump float；
+    ```
+
+18. 在顶点着色器和片元着色器之间，有以下两个步骤：
+
+    - 图形装配过程：这一步的任务是将孤立的顶点坐标装配成几何图形。几何图形的类别由 gl.drawArrays() 函数的第一个参数决定。
+    - 光栅化过程：这一步的任务是将装配好的几何图形转化为片元。
+
+19. 光栅化：将顶点着色器逐次装配出来的点所组成的图形转化为片元的过程。
+
+    它负责将矢量的几何图形转变为栅格化的片元（像素）。
+
+20. 片元数量就是光栅化后的图形最终在屏幕上所覆盖的像素数。
+
+21. RGBA中的 R 值从1.0降低为0.0，而 B 值则从0.0上升至1.0，线段上的所有片元的颜色值都会被恰当地计算出来——这个过程就被称为`内插过程`。每一个 varying 变量都会经过这样的内插过程。
+
+22. 纹理映射的作用，就是根据纹理图像，为之前光栅化后的每个元素涂上合适的颜色。组成纹理图像的像素又被称为`纹素`，每一个纹素的颜色都使用 RGB 或 RGBA 格式编码。
+
+23. 出于安全性考虑，webGL 不允许使用跨域纹理图像。
+
+24. 在 webGL 中，没法直接操作纹理对象，必须通过将纹理对象绑定到纹理单元上，然后通过操作纹理单元来操作纹理对象。webGL 通过一种称作`纹理单元`的机制来同时使用多个纹理。每个纹理单元有一个单元编号来管理一张纹理图像。即使只需要使用一张纹理图像，也得为其指定一个纹理单元。
+
+    必须将着色器中表示纹理对象的 uniform 变量申明为一种特殊的、专用于纹理对象的数据类型。如：
+
+        - sampler2D 绑定到 gl.TEXTURE_2D 上的纹理数据类型
+        - samplerCube 绑定到 gl.TEXTURE_CUBE_MAP 上的纹理数据类型
+
+25. 配置纹理对象的参数 gl.texParameteri(target, pname, param)
+
+    将 param 的值赋给绑定到目标的纹理对象的 pname 参数上。
+
+    参数：
+    target： gl.TEXTURE 或 gl.TEXTURE_CUBE_MAP
+    pname: 纹理参数
+
+        - gl.TEXTURE_MAG_FILTER 放大方法：这个参数表示当纹理的绘制范围比纹理本身更大时，如何获取纹素颜色。比如：将16×16的纹理图像映射到32×32像素的空间里时，纹理的尺寸就变成了原始的两倍。WebGL 需要填充由于放大而造成的像素间的空隙，该参数就表示填充这些空隙的具体方法。
+        - gl.TEXTURE_MIN_FILTER 缩小方法：这个参数表示当纹理的绘制范围比纹理本身更小时，如何获取纹素颜色。比如：将32×32的纹理图像映射到16×16像素的空间里时，纹理的尺寸就变成了原始的一半。WebGL 需要剔除纹理图像中的部分像素，该参数就表示具体的剔除像素的方法。
+        - gl.TEXTURE_WRAP_S 水平填充方法：这个参数表示如何对纹理图像左侧或右侧的区域进行填充。
+        - gl.TEXTURE_WRAP_T 垂直填充方法：这个参数表示如何对纹理图像上方和下方的区域进行填充。
+
+    param： 纹理参数的值
+
+        以下可以赋值给 gl.TEXTURE_MAG_FILTER 和 gl.TEXTURE_MIN_FILTER 的非金字塔纹理类型常量
+        - gl.NEAREST 使用原纹理上距离映射后像素（新像素）中心最近的那个像素的颜色值作为新像素的值。
+        - gl.LINEAR 使用距离新像素中心最近的四个像素的颜色值的加权平均作为新像素的值（与 gl.NEAREST 相比，该方法图像质量更好，但是会有较大的开销。）
+
+        以下可以赋值给 gl.TEXTURE_WRAP_S 和 gl.TEXTURE_WRAP_T 的常量
+        - gl.REPEAT 平铺式的重复纹理
+        - gl.MIRRORED_REPEAT 镜像对称式的重复纹理
+        - gl.CLAMP_TO_EDGE 使用纹理图像边缘值
+
+    返回值： 无
+
+    错误：INVALID_ENUM target 不是合法的值
+    INVALID_OPERATION 当前目标上没有绑定纹理对象
+
+    pname 与 param 对应关系：
+    gl.TEXTURE_MAG_FILTER 默认值 gl.LINEAR
+    gl.TEXTURE_MIN_FILTER 默认值 gl.NEAREST_MIPMAP_LINEAR
+    gl.TEXTURE_WRAP_S 默认值 gl.REPEAT
+    gl.TEXTURE_WRAP_T 默认值 gl.REPEAT
+
+26. 将纹理图像分配给纹理对象 gl.rexImage2D(target, level, internalformat, format, type, image)
+
+    将 image 指定的图像分配给绑定到目标上的纹理对象
+
+    参数：
+    target gl.TEXTURE_2D 或 gl.TEXTURE_CUBE_MAP
+    level 传入0（该参数是为金字塔纹理准备的）
+    internalformat 图像的内部格式
+    format 纹理数据的格式，必须使用与 internalformat 相同的值
+    type 纹理数据的类型，见下面“纹理数据的数据格式”
+    image 包含纹理图像的 Image 对象
+
+    返回值：无
+
+    错误：
+    INVALID_ENUM target不是合法的值
+    INVALID_OPERATION 当前目标上没有绑定纹理对象
+
+    关于 format 参数表示的纹理数据的格式，必须根据纹理图像的格式来选择这个参数。
+
+        - jpg、BMP 使用 gl.RGB
+        - PNG 使用 gl.RGBA
+        - gl.LUMINANCE 和 gl.LUMINANCE_ALPHA 通常用在灰度图像上
+        - 等等
+
+    format 格式：
+
+        - gl.RGB 红、绿、蓝
+        - gl.RGBA 红、绿、蓝、透明度
+        - gl.ALPHA (0.0, 0.0, 0.0, 透明度)
+        - gl.LUMINANCE L、L、L、1L：流明
+        - gl.LUMINANCE_ALPHA L、L、L，透明度
+
+        这里的流明表示我们感知到的物体表面的亮度。通常使用物体表面红、绿、蓝颜色分量值的加权平均来计算流明。
+
+    纹理数据的数据格式
+
+        通常我们使用 gl.UNSIGNED_BYTE 数据类型。当然也可以使用其他数据类型，如 gl.UNSIGNED_SHORT_5_6_5 (将 RGB 三分量压缩入16比特中)。后面的集中数据格式通常被用来压缩数据，以减少浏览器加载图像的时间。
+
+        - gl.UNSIGNED_BYTE 无符号整型，每个颜色分量占据1字节
+        - gl.UNSIGNED_SHORT_5_6_5 RGB：每个分量分别占据5、6、5比特
+        - gl.UNSIGNED_4_4_4_4 RGBA：每个分量分别占据4、4、4、4比特
+        - gl.UNSIGNED_5_5_5_1 RGBA：RGB 每个分量各占据5比特，A 分量占据1比特
+
+27. GLSL ES 内置函数 texture2D(sampler2D sampler, vec2 coord)
+
+    从 sampler 指定的纹理上获取 coord 指定的纹理坐标处的像素颜色。
+
+    参数：
+    sampler 指定纹理单元编号，sampler2D 类型
+    coord 指定纹理坐标，vec2 类型
+
+    返回值：纹理坐标处像素的颜色值，其格式由 gl.texImage2D() 的 internalformat 参数决定。如果由于某些原因导致纹理图像不可使用，那就返回（0.0，0.0，0.0，1.0）
+
+    不同 internalformat 参数下的返回值：
+    gl.RGB (R, G, B, 1.0)
+    gl.RGBA (R, G, B, A)
+    gl.ALPHA (0.0, 0.0, 0.0, A)
+    gl.LUMINANCE (L, L, L, 1.0)
+    gl.LUMINANCE_ALPHA (L, L, L, A)
 
