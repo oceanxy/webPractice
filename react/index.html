@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8'>
+    <title>Title</title>
+    <script src='./node_modules/react/umd/react.development.js'></script>
+    <script src='./node_modules/react-dom/umd/react-dom.development.js'></script>
+    <script src='./node_modules/babel-standalone/babel.js'></script>
+    <script src='./node_modules/lodash-core/distrib/lodash-core.min.js'></script>
+    <script src='./node_modules/react-tabllist/dist/react-tabllist.min.js'></script>
+
+  </head>
+  <body>
+    <div id='example'></div>
+    <!--<script type='text/babel'>-->
+    <script type='text/javascript'>
+      var option = {
+        data: [
+          ['1st column title', '2nd column title', '3rd column title'],
+          ['row 1; column 1', 'row 1; column 2', 'row 1; column 3'],
+          ['row 2; column 1', 'row 2; column 2', 'row 2; column 3'],
+          ['row 3; column 1', 'row 3; column 2', 'row 3; column 3'],
+          ['row 4; column 1', 'row 4; column 2', 'row 4; column 3'],
+          ['row 5; column 1', 'row 5; column 2', 'row 5; column 3'],
+          ['row 6; column 1', 'row 6; column 2', 'row 6; column 3'],
+          ['row 7; column 1', 'row 7; column 2', 'row 7; column 3'],
+          ['row 8; column 1', 'row 8; column 2', 'row 8; column 3'],
+          ['row 9; column 1', 'row 9; column 2', 'row 9; column 3']
+        ],
+        property: {
+          // The style of the outermost container
+          style: {
+            width: '100%',
+            margin: '0 auto',
+            height: 200,
+            border: '1px solid #999999'
+          },
+          border: {
+            borderWidth: 0
+          },
+          header: {
+            show: true,
+            style: {
+              borderBottom: '1px solid #999999'
+            },
+            cellStyle: {
+              fontWeight: 'bolder',
+              fontSize: 20,
+              color: '#333333'
+            }
+          },
+          isScroll: false
+        }
+      }
+
+      ReactDOM.render(
+        // <ReactTabllist {...option} />,
+        React.createElement(ReactTabllist, option),
+        document.getElementById('example')
+      )
+    </script>
+  </body>
+</html>
+

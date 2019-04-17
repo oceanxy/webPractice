@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8'>
+    <title>Title</title>
+  </head>
+  <body style='background: #000000'>
+    <div id='main' style='width: 522px;height: 197px;'></div>
+
+    <script src='node_modules/echarts/dist/echarts.js'></script>
+    <script>
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('main'))
+
+      // 指定图表的配置项和数据
+      var option = {
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            label: {
+              backgroundColor: '#6a7985'
+            }
+          }
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis: [
+          {
+            type: 'category',
+            boundaryGap: false,
+            axisLine: {
+              lineStyle: {
+                color: '#f2f2f2'
+              }
+            },
+            axisTick: {
+              show: false
+            },
+            axisLabel: {
+              color: '#ffffff',
+              interval: 0
+            },
+            splitLine: {
+              show: false
+            },
+            data: ['2018.12.01', '2018.12.02', '2018.12.03', '2018.12.04', '2018.12.05', '2018.12.06', '2018.12.07']
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            axisLine: {
+              lineStyle: {
+                color: '#f2f2f2'
+              }
+            },
+            axisTick: {
+              show: false
+            },
+            axisLabel: {
+              color: '#ffffff'
+            },
+            splitLine: {
+              show: false
+            }
+          }
+        ],
+        series: [
+          {
+            name: '类型一',
+            type: 'line',
+            itemStyle: {
+              opacity: 0
+            },
+            lineStyle: {
+              color: '#3bdcff'
+            },
+            areaStyle: {
+              color: '#3bdcff',
+              opacity: 0.3
+            },
+            data: [20, 13, 10, 23, 9, 23, 21]
+          },
+          {
+            name: '类型二',
+            type: 'line',
+            itemStyle: {
+              opacity: 0
+            },
+            lineStyle: {
+              color: '#ff7133'
+            },
+            areaStyle: {
+              color: '#ff7133',
+              opacity: 0.3
+            },
+            data: [10, 18, 19, 13, 19, 20, 10]
+          }
+        ]
+      }
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option)
+    </script>
+  </body>
+</html>

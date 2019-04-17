@@ -1,0 +1,472 @@
+@charset "UTF-8";
+/* 参考文档http://www.ruanyifeng.com/blog/2012/06/sass.html */
+/* 定义变量 */
+/* scss */
+nav span {
+  color: blue;
+}
+nav ul {
+  color: red;
+}
+nav p {
+  color: blue;
+}
+
+/* css
+nav a{
+  color: blue;
+}
+nav ul{
+  color: red;
+}
+nav p{
+  color: blue;
+}
+*/
+/* 选择器嵌套 */
+#top_nav a, #top_nav .disabled {
+  padding: 0 10px;
+  color: #fff;
+}
+#top_nav a:hover, #top_nav .disabled:hover, #top_nav .hoverlink {
+  color: blue;
+}
+
+/* css
+#top_nav a {
+  padding: 0 10px;
+  color: #fff;
+}
+
+#top_nav a:hover {
+  color: #ddd;
+}
+*/
+/* 属性嵌套 */
+.wrap {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* css
+.wrap {
+  font-size: 14px;
+  font-weight: bold;
+}
+*/
+/* 混合申明 */
+/* 1，无参数 */
+.r1 {
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* 2，有参数（ 变量[:默认值] ）*/
+.r2-1 {
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.r2-2 {
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+}
+
+/* 3，多个参数 */
+/* 声明一个混合boxSize，有两个参数高度和宽度 */
+/* 在.box中调用此混合并为赋值宽度100px，高度200px */
+.box {
+  width: 100px;
+  height: 200px;
+}
+
+/* 另一种写法 */
+.box2 {
+  width: 100px;
+  height: 200px;
+}
+
+/* css
+.box,
+.box2 {
+  width: 100px;
+  height: 200px;
+}
+*/
+/* 4，多组值参数 */
+.box-shadow {
+  border: 10px solid blue;
+  -webkit-box-shadow: 0 2px 2px red, 0 3px 3px blue, 0 4px 4px yellow;
+  box-shadow: 0 2px 2px red, 0 3px 3px blue, 0 4px 4px yellow;
+}
+
+/*
+  继承
+  继承a元素
+*/
+.disabled {
+  color: gray;
+}
+
+/* 继承a元素的hover状态 */
+a:hover, .disabled:hover, .hoverlink {
+  text-decoration: underline;
+}
+
+/* 继承多个选择器 */
+.one, .two {
+  width: 100px;
+  height: 100px;
+}
+
+.two {
+  background: red;
+  border: 5px solid #000;
+}
+
+.three, .two {
+  padding: 10px;
+}
+
+/* 选择器占位符 % */
+/* 没有被继承的选择器占位不会被编译成css */
+/* scss */
+.btn, .block {
+  margin: 5px;
+}
+
+.btn, .block span {
+  padding: 5px;
+}
+
+/* css （此处没有编译scss中的占位选择器%bgd）
+.btn, .block {
+  margin: 5px;
+}
+
+.btn, .block span {
+  padding: 5px;
+}
+*/
+/*
+  SassScript 支持的6种数据类型
+    数字（例如 1.2、13、10px）
+    文本字符串，无论是否有引号（例如 "foo"、'bar'、baz）
+    颜色（例如 blue、#04a3f9、rgba(255, 0, 0, 0.5)）
+    布尔值（例如 true、false）
+    空值（例如 null）
+    值列表，用空格或逗号分隔（例如 1.5em 1em 0 2em、 Helvetica, Arial, sans-serif）
+
+  SassScript 还支持所有其他 CSS 属性值类型
+    例如 Unicode 范围和 !important 声明。
+    然而，它不会对这些类型做特殊处理。 它们只会被当做不带引号的字符串看待。
+*/
+/*
+  列表函数
+    nth函数（nth function） 可以直接访问值列表中的某一项；
+    join函数（join function） 可以将多个值列表连结在一起；
+    append函数（append function） 可以在值列表中添加值；
+    @each规则（@each rule） 能够给值列表中的每个项目添加样式。
+*/
+/*
+  #｛｝
+    插值语句
+    使用 #｛｝插值语句 (interpolation) 时，有引号的字符串将被编译为无引号字符串
+    如果你希望在纯 CSS 中使用变量和 /， 你可以用 #｛｝ 包住变量。 例如
+*/
+/* scss */
+p {
+  font: 0.4;
+  font: 12px/30px;
+}
+
+/* css
+p {
+  font: 12px/30px;
+}
+*/
+/* 在文本字符串中，#｛｝ 形式的表达式可以被用来在字符串中添加动态值：*/
+/* cscc */
+p:before {
+  content: "I ate 15 pies!";
+}
+
+/* css
+p:before {
+  content: "I ate 15 pies!";
+}
+*/
+/* 字符串运算：+可以用来连接字符 */
+/* scss */
+p {
+  cursor: e-resize;
+}
+
+/* css
+p {
+  cursor: e-resize;
+}
+*/
+/* 有引号和无引号的连接规则：遵循+左边字符串的规则 */
+/* scss */
+p:before {
+  content: "Foo Bar";
+  font-family: sans-serif;
+}
+
+/* css
+p:before {
+  content: "Foo Bar";
+  font-family: sans-serif;
+}
+*/
+/* 空值会被视作空字符串 */
+/* scss */
+p:before {
+  content: "I ate  pies!";
+}
+
+/* css
+p:before {
+  content: "I ate  pies!";
+}
+*/
+/* @if判断 */
+/*
+  除非你的代码中有偏复杂的逻辑，否则没必要在日常开发的样式表中使用条件语句。
+  实际上，条件语句主要适用于库和框架。
+  无论何时，如果你感觉需要它们，请遵守下述准则：
+
+  除非必要，不然不需要括号；
+  务必在 @if 之前添加空行；
+  务必在左开大括号( { )后换行；
+  @else 语句和它前面的右闭大括号( } )写在同一行；
+  务必在右闭大括号( } )后添加空行；
+  除非下一行还是右闭大括号( } )，那么就在最后一个右闭大括号( } )后添加空行。
+*/
+/* scss */
+p {
+  border: 1px solid;
+}
+
+/* css
+p {
+  border: 1px solid;
+}
+*/
+/* @if @else 结合使用方法 */
+/* scss */
+p {
+  width: 30px;
+}
+
+/* css
+p {
+  width: 30px;
+}
+*/
+/* 三目运算符 */
+/*
+  if($condition, $condition_true, $condition_false)
+  三个参数分别表示：条件，条件为真的值，条件为假的值。
+  PS：这个 if 没有 @ 前缀，和 @if 判断不同
+*/
+/* scss */
+p {
+  font-weight: bold;
+}
+
+/* css
+p {
+  font-weight: bold;
+}
+*/
+/*
+  for循环
+  在 Sass 中，可以使用 @for 循环来完成。
+  在 Sass 的 @for 循环中有两种方式：
+  
+  @for $i from start through end
+  @for $i from start to end
+  
+  $i 表示变量 start 表示起始值 end 表示结束值
+  这两个的区别是关键字 through 表示包括 end 这个数，而 to 则不包括 end 这个数
+*/
+/* scss */
+.item-1 {
+  width: 2em;
+}
+
+.item-2 {
+  width: 4em;
+}
+
+.item-3 {
+  width: 6em;
+}
+
+/* css
+.item-1 {
+  width: 2em;
+}
+
+.item-2 {
+  width: 4em;
+}
+
+.item-3 {
+  width: 6em;
+}
+*/
+/* scss */
+.item-10 {
+  width: 20em;
+}
+
+.item-11 {
+  width: 22em;
+}
+
+.item-12 {
+  width: 24em;
+}
+
+.item-13 {
+  width: 26em;
+}
+
+.item-14 {
+  width: 28em;
+}
+
+.item-15 {
+  width: 30em;
+}
+
+.item-16 {
+  width: 32em;
+}
+
+.item-17 {
+  width: 34em;
+}
+
+.item-18 {
+  width: 36em;
+}
+
+.item-19 {
+  width: 38em;
+}
+
+.item-20 {
+  width: 40em;
+}
+
+.item-21 {
+  width: 42em;
+}
+
+.item-22 {
+  width: 44em;
+}
+
+.item-23 {
+  width: 46em;
+}
+
+.item-24 {
+  width: 48em;
+}
+
+.item-25 {
+  width: 50em;
+}
+
+.item-26 {
+  width: 52em;
+}
+
+.item-27 {
+  width: 54em;
+}
+
+.item-28 {
+  width: 56em;
+}
+
+.item-29 {
+  width: 58em;
+}
+
+/* css
+.item-1 {
+  width: 2em;
+}
+.item-2 {
+  width: 4em;
+}
+*/
+/*
+  @each 循环就是去遍历一个列表，然后从列表中取出对应的值。
+  @each 循环指令的形式： @each $var in < list >
+  
+  $var 就是一个变量名，< list > 是一个 SassScript 表达式，它将返回一个列表值。
+  变量 $var 会在列表中做遍历，并且遍历出与 $var 对应的样式块。
+*/
+/* scss */
+.puma-icon {
+  background-image: url("/course/565c0c2abc27d77730c072b3/img/puma.png");
+}
+
+.egret-icon {
+  background-image: url("/course/565c0c2abc27d77730c072b3/img/egret.png");
+}
+
+.salamander-icon {
+  background-image: url("/course/565c0c2abc27d77730c072b3/img/salamander.png");
+}
+
+/* css
+.puma-icon {
+  background-image: url('/course/565c0c2abc27d77730c072b3/img/puma.png');
+}
+.egret-icon {
+  background-image: url('/course/565c0c2abc27d77730c072b3/img/egret.png');
+}
+.salamander-icon {
+  background-image: url('/course/565c0c2abc27d77730c072b3/img/salamander.png');
+}
+*/
+/*
+  while循环
+  @while 指令也需要 SassScript 表达式，并且会生成不同的样式块
+  直到表达式值为 false 时停止循环，这个和 @for 指令很相似
+  只要 @while 后面的条件为 true 就会执行。
+*/
+/* scss */
+.item-6 {
+  width: 12em;
+}
+
+.item-4 {
+  width: 8em;
+}
+
+.item-2 {
+  width: 4em;
+}
+
+/* css
+.item-6 {
+  width: 12em;
+}
+.item-4 {
+  width: 8em;
+}
+.item-2 {
+  width: 4em;
+}
+*/
+
+/*# sourceMappingURL=test.css.map */
