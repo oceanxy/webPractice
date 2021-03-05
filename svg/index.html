@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Svg</title>
+  <style>
+  svg {
+      height: 500px;
+      fill: none;
+      stroke: #00a2d4;
+      stroke-width: 4px;
+      stroke-dasharray: 320;
+      stroke-dashoffset: 320;
+  }
+  path {
+      animation: dash 5s linear forwards;
+  }
+
+  @keyframes dash {
+      to {
+          stroke-dashoffset: 0;
+      }
+  }
+  </style>
+</head>
+<body>
+<svg>
+  <path d="M10 10 H 90 V 90 H 10 Z" />
+</svg>
+<button onclick="changePath()">改变path</button>
+</body>
+
+<script>
+function changePath() {
+  const svg = document.getElementsByTagName('svg')[0]
+  svg.children[0].setAttribute('d', 'M100,100 L200,100 L200,200 L100,200 Z')
+  console.log(svg.children[0].getTotalLength());
+}
+</script>
+</html>
