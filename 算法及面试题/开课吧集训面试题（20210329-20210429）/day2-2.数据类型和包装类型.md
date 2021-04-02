@@ -1,5 +1,5 @@
 # js 基础数据类型
-string number boolean undefined null
+string number boolean undefined null Symbol
 
 # 引用类型
 Object Array
