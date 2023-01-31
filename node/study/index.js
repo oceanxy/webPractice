@@ -3,6 +3,10 @@
  * 主要功能是实现一个简单的图片上传并显示
  */
 
+var server = require('./server')
+var router = require('./router')
+var requestHandlers = require('./requestHandlers')
+
 var handle = {}
 handle['/'] = requestHandlers.start
 handle['/start'] = requestHandlers.start
